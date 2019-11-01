@@ -155,7 +155,7 @@ def get_member_orthologs(member, target_taxa=None, target_levels=None):
         # merge by side1 coorthologs
         targets = target_taxa or list(by_sp2.keys())
 
-        for sp1, co1 in by_sp1.items():
+        for sp1, co1 in list(by_sp1.items()):
             if target_members & co1:
                 key1 = (sp1, tuple(sorted((co1))))
                 
@@ -168,7 +168,7 @@ def get_member_orthologs(member, target_taxa=None, target_levels=None):
 
         # merge by side2 coorthologs
         targets = target_taxa or list(by_sp1.keys())
-        for sp1, co1 in by_sp2.items():
+        for sp1, co1 in list(by_sp2.items()):
             if target_members & co1:
                 key1 = (sp1, tuple(sorted((co1))))
                 for sp2 in targets:
@@ -187,7 +187,7 @@ def get_member_orthologs(member, target_taxa=None, target_levels=None):
         "all": set(),
     }
 
-    for k, v in orthology.items():
+    for k, v in list(orthology.items()):
         if len(k[1]) == 1:
             otype_prefix = "one2"
         else:
@@ -293,14 +293,14 @@ def get_annotated_orthologs(target_members, orthotype, excluded_gos, cpu):
     cmd3 = 'SELECT name, pname, go, kegg FROM member WHERE name in (%s);' % in_clause
     t1 = time.time()
     db.execute(cmd3)
-    print(time.time() - t1)
+    print((time.time() - t1))
     functions = {e[0]: e[1:] for e in db.fetchall()}
-    print(time.time() - t1)
+    print((time.time() - t1))
 
     #print len(all_orthologs), list(all_orthologs)[:10], in_clause[:10]
     #print len([b for a,b in functions.iteritems() if b[0] ])
     annotations = {}
-    for m, orthologs in m2or.items():
+    for m, orthologs in list(m2or.items()):
         all_gos = set()
         all_kegg = set()
         all_pnames = Counter()
@@ -336,7 +336,7 @@ def build_orthologs(target_members, events, target_taxa=None):
 
         # merge by side1 coorthologs
         targets = target_taxa or list(by_sp2.keys())
-        for sp1, co1 in by_sp1.items():
+        for sp1, co1 in list(by_sp1.items()):
             if target_members & co1:
                 key1 = (sp1, tuple(sorted((co1))))
                 for sp2 in targets:
@@ -348,7 +348,7 @@ def build_orthologs(target_members, events, target_taxa=None):
 
         # merge by side2 coorthologs
         targets = target_taxa or list(by_sp1.keys())
-        for sp1, co1 in by_sp2.items():
+        for sp1, co1 in list(by_sp2.items()):
             if target_members & co1:
                 key1 = (sp1, tuple(sorted((co1))))
                 for sp2 in targets:
@@ -366,7 +366,7 @@ def build_orthologs(target_members, events, target_taxa=None):
         "all": set(),
     }
 
-    for k, v in orthology.items():
+    for k, v in list(orthology.items()):
         if len(k[1]) == 1:
             otype_prefix = "one2"
         else:
